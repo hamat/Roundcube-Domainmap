@@ -1,0 +1,13 @@
+{
+	"type": "roundcube-plugin",
+	"keywords": ["login","settings"],
+	"license": "GPL-3.0",
+	"authors": [
+		{
+			"name": "Takayuki Hama"
+		}
+	],
+	"require": {
+		"roundcube/plugin-installer": ">=0.1.6"
+	}
+}
