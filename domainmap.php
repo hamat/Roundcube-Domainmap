@@ -25,7 +25,7 @@ class domainmap extends rcube_plugin
 		// add hook
 		$this->add_hook('authenticate', array($this, 'authenticate'));
 		$this->add_hook('user_create', array($this, 'user_create'));
-		$this->add_hook('storage_connect', array($this, 'connect'));
+		$this->add_hook('storage_connect', array($this, 'storage_connect'));
 		$this->add_hook('smtp_connect', array($this, 'smtp_connect'));
 
 		// add plugins
@@ -152,10 +152,8 @@ class domainmap extends rcube_plugin
 				$this->map[$domain]['smtp_host'];
 
 			if (strlen($smtp['user']) && strlen($smtp['pass'])) {
-				$_SESSION['domainmap']['smtp_user'] =
-					$smtp['user'];
-				$_SESSION['domainmap']['smtp_pass'] =
-					$smtp['pass'];
+				$_SESSION['domainmap']['smtp_user'] = $smtp['user'];
+				$_SESSION['domainmap']['smtp_pass'] = $smtp['pass'];
 			}
 		}
 
@@ -169,8 +167,7 @@ class domainmap extends rcube_plugin
 
 			// port
 			if (is_int($sieve['port'])) {
-				$_SESSION['domainmap']['sieve_port'] =
-					$sieve['port'];
+				$_SESSION['domainmap']['sieve_port'] = $sieve['port'];
 			}
 
 			// usetls
@@ -196,7 +193,7 @@ class domainmap extends rcube_plugin
 	/**
 	 * Callback for 'storage_connect' hook
 	 */
-	public function connect($args)
+	public function storage_connect($args)
 	{
 		$args['user'] = $_SESSION['domainmap']['user'];
 		$args['host'] = $_SESSION['domainmap']['host'];
@@ -213,12 +210,9 @@ class domainmap extends rcube_plugin
 	public function smtp_connect($args)
 	{
 		if (array_key_exists('smtp_host', $_SESSION['domainmap'])) {
-			$args['smtp_server'] =
-				$_SESSION['domainmap']['smtp_host'];
-			$args['smtp_user'] =
-				$_SESSION['domainmap']['smtp_user'];
-			$args['smtp_paas'] =
-				$_SESSION['domainmap']['smtp_pass'];
+			$args['smtp_server'] = $_SESSION['domainmap']['smtp_host'];
+			$args['smtp_user'] = $_SESSION['domainmap']['smtp_user'];
+			$args['smtp_paas'] = $_SESSION['domainmap']['smtp_pass'];
 		}
 
 		return $args;
@@ -236,8 +230,7 @@ class domainmap extends rcube_plugin
 		if (array_key_exists('sieve_host', $_SESSION['domainmap'])) {
 			$args['host'] = $_SESSION['domainmap']['sieve_host'];
 			$args['port'] = $_SESSION['domainmap']['sieve_port'];
-			$args['usetls'] =
-				$_SESSION['domainmap']['sieve_usetls'];
+			$args['usetls'] = $_SESSION['domainmap']['sieve_usetls'];
 		}
 		else {
 			$args['host'] = $_SESSION['domainmap']['host'];
@@ -258,8 +251,7 @@ class domainmap extends rcube_plugin
 		if (array_key_exists('sieve_host', $_SESSION['domainmap'])) {
 			$args['host'] = $_SESSION['domainmap']['sieve_host'];
 			$args['port'] = $_SESSION['domainmap']['sieve_port'];
-			$args['usetls'] =
-				$_SESSION['domainmap']['sieve_usetls'];
+			$args['usetls'] = $_SESSION['domainmap']['sieve_usetls'];
 		}
 		else {
 			$args['host'] = $_SESSION['domainmap']['host'];
