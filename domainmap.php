@@ -7,7 +7,7 @@
  *
  * @author Takayuki Hama
  *
- * Copyright (C) 2015 Takayuki Hama
+ * Copyright (C) 2016 Takayuki Hama
  */
 
 class domainmap extends rcube_plugin
@@ -116,7 +116,13 @@ class domainmap extends rcube_plugin
 		// connection settings
 		$a_host = parse_url($this->map[$domain]['host']);
 
-		$_SESSION['domainmap']['host'] = $a_host['host'];
+		if (empty($a_host['host'])) {
+			$_SESSION['domainmap']['host'] = $a_host['path'];
+		}
+		else {
+			$_SESSION['domainmap']['host'] = $a_host['host'];
+		}
+
 		$_SESSION['domainmap']['secure'] = null;
 		$_SESSION['domainmap']['port'] = 143;
 
