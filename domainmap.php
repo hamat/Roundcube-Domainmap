@@ -116,6 +116,7 @@ class domainmap extends rcube_plugin
 		// connection settings
 		$a_host = parse_url($this->map[$domain]['host']);
 
+		// host
 		if (empty($a_host['host'])) {
 			$_SESSION['domainmap']['host'] = $a_host['path'];
 		}
@@ -123,6 +124,7 @@ class domainmap extends rcube_plugin
 			$_SESSION['domainmap']['host'] = $a_host['host'];
 		}
 
+		// defaults
 		$_SESSION['domainmap']['secure'] = null;
 		$_SESSION['domainmap']['port'] = 143;
 
