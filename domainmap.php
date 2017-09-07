@@ -89,7 +89,7 @@ class domainmap extends rcube_plugin
 			$args['error'] = $this->gettext('nohost');
 		}
 		else {
-			$args['host'] = 'localhost';
+			$args['abort'] = false;
 		}
 
 		// set session params
