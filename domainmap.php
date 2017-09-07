@@ -153,16 +153,11 @@ class domainmap extends rcube_plugin
 		}
 
 		// smtp server
-		$smtp = parse_url($this->map[$domain]['smtp_host']);
-
-		if (!empty($smtp['host'])) {
-			$_SESSION['domainmap']['smtp_host'] =
-				$this->map[$domain]['smtp_host'];
-
-			if (strlen($smtp['user']) && strlen($smtp['pass'])) {
-				$_SESSION['domainmap']['smtp_user'] = $smtp['user'];
-				$_SESSION['domainmap']['smtp_pass'] = $smtp['pass'];
-			}
+		if (!empty($this->map[$domain]['smtp_server'])) {
+			$_SESSION['domainmap']['smtp_server'] =
+				$this->map[$domain]['smtp_server'];
+			$_SESSION['domainmap']['smtp_user'] = $smtp['user'];
+			$_SESSION['domainmap']['smtp_pass'] = $smtp['pass'];
 		}
 
 		// sieve host
@@ -217,8 +212,8 @@ class domainmap extends rcube_plugin
 	 */
 	public function smtp_connect($args)
 	{
-		if (array_key_exists('smtp_host', $_SESSION['domainmap'])) {
-			$args['smtp_server'] = $_SESSION['domainmap']['smtp_host'];
+		if (array_key_exists('smtp_server', $_SESSION['domainmap'])) {
+			$args['smtp_server'] = $_SESSION['domainmap']['smtp_server'];
 			$args['smtp_user'] = $_SESSION['domainmap']['smtp_user'];
 			$args['smtp_paas'] = $_SESSION['domainmap']['smtp_pass'];
 		}
